@@ -71,3 +71,6 @@ bind '"\C-G": "got -s \n"'
 # ( ) # Hide shell job control messages.
 # sequence file will be deleted by bgswap reset
 [[ -f ~/.cache/wal/sequences ]] && (cat ~/.cache/wal/sequences &)
+
+PATH="${PATH}:~/.bash/scripts/"
+export PATH

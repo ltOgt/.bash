@@ -1,0 +1,86 @@
+#!/bin/bash
+
+# variables
+placeholder="__SIZE__"
+regular_settings="xft:Liberation Mono:pixelsize=$placeholder:antialias=true:hinting=true"
+bold_settings="xft:Liberation Mono:bold:pixelsize=$placeholder:antialias=true:hinting=true"
+italic_settings="xft:Liberation Mono:italic:pixelsize=$placeholder:antialias=true:hinting=true"
+
+size_path=~/.config/urxvt_font_size
+if [ -f $size_path ]; then
+	current_font_size="$(cat $size_path)"
+else
+	# default font size
+	current_font_size="15"
+fi
+
+if [[ $# -eq 0 ]] || [[ $1 == "-h" ]] || [[ $1 == "--help" ]]; then
+	echo 'USAGE:'
+	echo "	urxvt_zoom + [<num>]    increment the font size [by <num>]"
+	echo "	urxvt_zoom - [<num>]    decrement the font size [by <num>]"
+	echo "	urxvt_zoom s  <num>     set the font size        to <num>"
+	exit 0
+fi
+
+# store the operator
+op=$1
+# parse the number
+if [[ $# -eq 1 ]]; then
+	if [[ $op == 's' ]]; then
+		echo "+ option requires a number. Try --help."
+		exit 1
+	fi
+	# defaults to increment/decrement of 1 for +/-
+	num=1
+else
+	shift
+	num=$1
+	numrgx="^[0-9]+$"
+	if ! [[ $num =~ $numrgx ]]; then
+		echo "$op option requires a number. Try --help."
+		exit 1
+	fi
+fi
+
+case "$op" in
+	s)
+		current_font_size=$num
+		;;
+	+|-)
+		# increment the value by num
+		current_font_size="$(($current_font_size $op $num))"
+		;;
+	*)
+		echo "$op not recognized; try --help."
+		exit 1
+esac
+# build the actual sequence
+control_sequence=""
+#
+# \033] starts the control sequence
+# 	\710; set normal font
+# 	\711; set bold font
+# 	\712; set italic font
+# 	\713: set bold/italic font
+# \007 ends the control sequence
+#
+if ! [ -z "$regular_settings" ]; then
+	# replace <SIZE> with the current size
+	regular_settings=${regular_settings/$placeholder/$current_font_size}
+	control_sequence="\033]710;$regular_settings\007"
+fi
+if ! [ -z "$bold_settings" ]; then
+	# replace <SIZE> with the current size
+	bold_settings=${bold_settings/$placeholder/$current_font_size}
+	control_sequence="$control_sequence\033]711;$bold_settings\007"
+fi
+if ! [ -z "$italic_settings" ]; then
+	# replace <SIZE> with the current size
+	italic_settings=${italic_settings/$placeholder/$current_font_size}
+	control_sequence="$control_sequence\033]712;$italic_settings\007"
+fi
+
+# execute the control sequence
+echo -n -e "$control_sequence"
+#[ -f $size_path ] && rm $size_path
+echo "$current_font_size" > $size_path

@@ -1,0 +1,93 @@
+#!/bin/bash
+
+data_file=/var/lib/volume_control.sink
+
+# functions
+function print_usage ()
+{
+	echo 'USAGE:'
+	echo "volume_control + <n>         increase volume by n%"
+	echo "volume_control - <n>         decrease volume by n%"
+	echo "volume_control mute          decrease volume by n%"
+	echo "volume_control sink [<n>]    select sink [n] to control"
+}
+
+function assert_last ()
+{
+	if [[ $# -gt 1 ]];then
+		"$1 was excpected to be the last parameter."
+		exit 1
+	fi
+}
+
+# check files
+if [[ ! -f $data_file ]]; then
+	echo "Creating $data_file to store the selected sink..."
+	sudo touch $data_file
+	sudo chmod a+w $data_file
+	echo "0" > $data_file
+fi
+
+curr_sink="$(cat $data_file)"
+
+# check parameters
+while [[ $# -gt 0 ]]; do
+	case "$1" in
+		+ | -)
+			# shift if not last parameter
+			if [[ $# -eq 1 ]]; then
+				echo "$1 requires a specification. Try --help."
+				exit 1
+			fi
+			op=$1
+			shift
+
+			# shifted -> new $1; should be a number
+			numrgx="^[0-9]+$"
+			if ! [[ $1 =~ $numrgx ]]; then
+				echo "This option requires a number. Try --help."
+				exit 1
+			fi
+			assert_last
+			echo "pactl set-sink-volume $curr_sink $op$1%"
+			pactl set-sink-volume $curr_sink $op$1%
+			;;
+		-h | --help)
+			print_usage
+			exit 0
+			;;
+		curr)
+			echo "$curr_sink from:"
+			echo "-------"
+			echo "$(pactl list | grep -E "Sink #" -A2 | grep -E "Sink|Name|--")"
+			;;
+		mute)
+			pactl set-sink-mute $curr_sink toggle
+			;;
+		sink)
+			if [[ $# -eq 2 ]]; then
+				sink=$2
+			else
+				raw_res="$(pactl list | grep -E "Sink #" -A2 | grep -E "Sink|Name|--")"
+				dirty_sink=$(echo $raw_res | sed 's/--/\n/g' | dmenu -p "Sel Sink:")
+				sink=$(echo $dirty_sink | rev | cut -f1 -d "#" | rev | cut -f1 -d" ")
+			fi
+			numrgx="^[0-9]+$"
+			if ! [[ $sink =~ $numrgx ]]; then
+				echo "This option requires a number. Provided <$sink> Try --help."
+				exit 1
+			fi
+			echo "Selected Sink #"$sink
+			echo $sink > $data_file
+			exit 0
+			;;
+		*)
+			echo "<$1> not an option. Try --help."
+			;;
+	esac
+	# shift out parsed option
+	shift
+done
+exit 0
+
+
