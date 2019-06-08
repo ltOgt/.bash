@@ -1,0 +1,182 @@
+#!/bin/bash
+
+# ================== #
+#  Rework needed !!  #
+# ================== #
+
+i3conf=~/.config/i3
+base=$i3conf/config_base
+gap=$i3conf/config_gaps
+prod=$i3conf/config
+local_patches=$i3conf/locpatch
+
+prof_file=$i3conf/cprof
+
+s_profile=$i3conf/profiles
+
+# check if i3 config setup
+if ! [ -d $i3conf ]; then
+	echo $i3conf "does not exist"
+	exit 1
+fi
+
+
+function print_usage {
+	echo "USAGE:"
+	echo "iprof               create i3/config from base and local patches and gaps"
+	echo "iprof --no-gap      create i3/config from base and local patches"
+	echo "iprof --base        create i3/config from base"
+	echo "iprof --profile     manage workspace profiles"
+	echo "      [-l [-a]]     - list profiles [with content]"
+	echo "      [-s [NUM]]    - set profile NUM"
+	echo "      [-c [NUM]]    - combine profiles"
+	echo "      [-r [NUM]]    - rename ws NUM"
+}
+
+function apply_local_patches {
+	# check if patches exist
+	miss_msg="No local patches detected; you can create one as "$local_patches"/<file>.patch"
+	if ! [ -d $local_patches ]; then
+		echo $miss_msg
+	else
+		mask=$local_patches/*.patch
+		files=($mask)
+		if [[ ${#files[@]} -eq 1 ]] && [[ "${files[0]}" == "$mask" ]]; then
+			echo $miss_msg
+		else
+			for patchfile in $local_patches/*.patch; do
+				echo "patch: $prod << $patchfile"
+				cat $patchfile >> $prod
+			done
+		fi
+	fi
+}
+
+function check_profile_req {
+	set -e
+	if ! [ -d $s_profile ] ; then
+		echo "$s_profile does not exist. Create now? [y/n]"
+		read answer
+		if [[ ! $answer = "y" ]] && [[ ! $answer = 'Y' ]]; then
+			echo "$s_profile not created!"
+			echo "Exiting..."
+			exit
+		fi
+		mkdir -p $s_profile
+		echo "Created $s_profile"
+	fi
+	if ! test "$(ls "$s_profile")"; then
+		echo "No profiles exist!"
+		echo "You can create profiles in $s_profile"
+		echo "Exiting..."
+		exit
+	fi
+	set +e
+}
+
+function get_profile_by_path {
+	# $1: path to profile
+	i=0
+	while IFS= read line; do
+		# ignore comments
+		if ! [[ "#" = "$(echo $line | head -c 1)" ]]; then
+			lineArray[$i]=$line
+			let i+=1
+			# !!! i3 workspaces start @ 1 !!!
+			echo "   [$i: $line]"
+		fi
+	done < $1
+}
+
+function list_profiles {
+	# $1: print profile content; bool
+	p=0
+	for c_prof in $s_profile/*; do
+		profArray[$p]=$c_prof
+		if [ $1 -ge 0 ]; then
+			echo $p")" $c_prof
+		fi
+		if [ $1 -eq 1 ]; then
+			get_profile_by_path $c_prof
+		fi
+	    let p+=1
+	done
+}
+
+function gen_profile {
+	if [ $# -eq 3 ]
+	then
+		let number=$3
+		list_profiles -1
+	else
+		list_profiles 0
+		echo "Select number:"
+		read number
+	fi
+	cat $base > $prod
+	cat $gap >> $prod
+
+	get_profile_by_path ${profArray[number]}
+
+	echo "" > $prof_file
+	echo "#=================== PROFILE OVERWRITE" >> $prof_file
+	let j=1
+	for ws in "${lineArray[@]}"; do
+		echo "set \$ws$j \"$j[$j: $ws]\"" >> $prof_file
+		let j+=1
+	done
+	apply_local_patches
+	cat $prof_file >> $prod
+}
+
+function handle_profiles {
+	# check params
+	if [ $# -eq 1 ]; then
+		cat $prof_file
+	elif [[ $2 = "-l" ]] || [[ $2 = "-la" ]] ; then
+		if [[ $3 = "-a" ]] || [[ $2 = "-la" ]] ; then
+			list_profiles 1
+		else
+			list_profiles 0
+		fi
+	elif [[ $2 = "-s" ]] ; then
+		gen_profile $@
+	elif [[ $2 = "-c" ]] ; then
+		echo "TODO"
+	elif [[ $2 = "-r" ]] ; then
+		echo "TODO"
+	else
+		print_usage
+	fi
+}
+
+# check if sources match requirements
+if ! [ -f $base ]; then
+	echo $base "does not exist"
+elif ! [ -f $gap ] && [ $# -eq 0 ] ; then
+	echo $gap "does not exist"
+else
+	if [ $# -gt 0 ]
+	then
+		if [[ $1 = "--no-gap" ]]; then
+			cat $base > $prod
+			echo "Created $prod from $base"
+			apply_local_patches
+		elif [[ $1 = "--base" ]] || [[ $1 = "-b" ]]; then
+			cat $base > $prod
+			echo "Created $prod from $base"
+			apply_local_patches
+		elif [[ $1 = "--profile" ]] || [[ $1 = "-p" ]]; then
+			check_profile_req
+			handle_profiles $@
+		else
+			print_usage
+		fi
+	else
+		cat $base > $prod
+		cat $gap >> $prod
+		echo "Created $prod from $base and $gap"
+		apply_local_patches
+	fi
+fi
+
