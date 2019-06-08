@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# ======================================== #
+#  ln -s to /usr/local/bin is recommended  #
+# ======================================== #
+
 # variables
 placeholder="__SIZE__"
 regular_settings="xft:Liberation Mono:pixelsize=$placeholder:antialias=true:hinting=true"
