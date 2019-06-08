@@ -1,0 +1,24 @@
+#!/bin/bash
+
+if [ $# -lt 2 ] || ([[ $1 == '--help' ]] || [[ $1 == '-h' ]])
+then
+    echo 'prompt <PROMPT> <ACTION>'
+    echo '       Prompt user and perform action on "Y"'
+    echo 'prompt --input <Prompt> <ACTION>'
+    echo '       Prompt user and perform action with dmenu input'
+
+elif [ $2 == "--input" ]
+then
+	prompt=$2
+	action=$3
+	$action $(dmenu -p "$prompt")
+
+else
+	prompt=$1
+	action=$2
+	[[ $(echo -e "y\nn" | dmenu -p "$prompt") == "y" ]] && $action
+fi
+
+# sucess
+exit 0
+
