@@ -1,0 +1,7 @@
+#!/bin/bash
+# if block is clicked (left) -> trigger simple calendar
+if [[ 1 -eq ${BLOCK_BUTTON} ]];then
+	# (set config to close on deselect)
+	gsimplecal &
+fi
+echo "$(date '+%Y-%m-%d %H:%M')"
