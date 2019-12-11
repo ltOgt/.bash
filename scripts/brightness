@@ -1,0 +1,68 @@
+#!/bin/bash
+
+conf=~/.config/brightness.conf
+
+# functions
+function print_config ()
+{
+	echo "please setup $conf like so:"
+	echo "line1:       /path/to/backlight"
+	echo ""
+	echo "You can find that file by issuing:"
+	echo "    sudo find /sys/ -type f -iname '*brightness*'"
+	echo "and selecting the path leading to /brigntness"
+	echo "(also add write permissions with chomd)"
+	#echo "initial: -rw-r--r--"
+}
+
+function print_usage ()
+{
+	echo 'brightness + <n>'
+	echo 'brightness - <n>'
+	echo 'brightness --dark      set monitor to dark'
+	echo 'brightness --mid       set monitor to mid'
+	echo 'brightness --light     set monitor to bright'
+	echo 'brightness --set <n>   set monitor to <n>'
+	echo ""
+	print_config
+}
+
+
+# check parameters
+if [[ $# -eq 1 ]] && ([[ $1 = '--help' ]] || [[ $1 = '-h' ]])
+then
+	print_usage
+else
+	if [ ! -f $conf ]; then
+		echo "CONFIG FILE MISSING"
+		echo ""
+		print_config
+		exit 1
+	fi
+
+	_path=$(cat $conf)
+
+	if   [[ $1 == '--set'   ]];then
+		echo "$(($2))"
+		echo "$(($2))" > $_path
+	elif [[ $1 == '--dark'  ]];then
+		echo "200"
+		echo "200" > $_path
+	elif [[ $1 == '--mid'   ]];then
+		echo "500"
+		echo "500" > $_path
+	elif [[ $1 == '--light' ]];then
+		echo "900"
+		echo "900" > $_path
+	elif [[ $1 == '+'       ]];then
+		echo "$(($(cat $_path) + $2))"
+		echo "$(($(cat $_path) + $2))" > $_path
+	elif [[ $1 == '-'       ]];then
+		echo "$(($(cat $_path) - $2))"
+		echo "$(($(cat $_path) - $2))" > $_path
+	fi
+fi
+
+# sucess
+exit 0
+
