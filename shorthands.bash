@@ -35,3 +35,11 @@ alias zs='urxvt_zoom s'
 
 # Print out commonly used (by me) syntax file for quick reference
 alias gidde="awk '/MEANING/,/^$/' ~/.vim/syntax/gid.vim"
+
+# extend to my second screen at home
+alias aocon='xrandr --output HDMI-1 --right-of eDP-1 --auto'
+alias aocoff='xrandr --output HDMI-1 --off'
+
+# android development
+alias emulate-allow='sudo chmod a+rw /dev/kvm'
+alias emulate='android-emulator -avd device'

@@ -72,5 +72,5 @@ bind '"\C-G": "got -s \n"'
 # sequence file will be deleted by bgswap reset
 [[ -f ~/.cache/wal/sequences ]] && (cat ~/.cache/wal/sequences &)
 
-PATH="${PATH}:~/.bash/scripts/"
+PATH="~/.bash/scripts/:${PATH}"
 export PATH
