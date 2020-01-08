@@ -28,6 +28,9 @@ source $cbp/hotspot.bash
 # Git shorthands
 source $cbp/git.bash
 
+# Flutter shorthands
+source $cbp/flutter.bash
+
 
 # auto corrections
 alias ös='ls'
