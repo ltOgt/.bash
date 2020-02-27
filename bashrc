@@ -23,7 +23,7 @@ source $cbp/compounds.bash
 source $cbp/shorthands.bash
 
 # Hotspot Management (NOT INCLUDED IN REPOSITORY)
-source $cbp/hotspot.bash
+#source $cbp/hotspot.bash
 
 # Git shorthands
 source $cbp/git.bash
@@ -52,21 +52,31 @@ aenv ()
 # BINDS ----------------------------------------------------
 # Keycodes can be found by ´´´$ cat <Enter>´´´ and then hitting the desired keys. "^" must be replaced by "\e"
 
-urxvt_zoom s $(cat ~/.config/urxvt_font_size)
+# check if shell runs in interactive mode
+if [[ $- == *i* ]] ; then
 
-# Alt+P => increase font size
-bind -x '"\ep": "urxvt_zoom + 5"'
-# Alt+M => decrease font size
-bind -x '"\em": "urxvt_zoom - 5"'
+	set -o vi
 
-# go back a directory with Alt+Left
-# ^[^[[D
-# ^[^[[A
+	urxvt_zoom s $(cat ~/.config/urxvt_font_size)
 
-bind '"\C-G": "got -s \n"'
+	# Alt+P => increase font size
+	bind -x '"\ep": "urxvt_zoom + 5"'
+	# Alt+M => decrease font size
+	bind -x '"\em": "urxvt_zoom - 5"'
 
-# vim mode in bash
-# Ctrl+X Ctrl+E
+	# go back a directory with Alt+Left
+	# ^[^[[D
+	# ^[^[[A
+
+	bind '"\C-G": "got -s \n"'
+
+	# vim mode in bash
+	# Ctrl+X Ctrl+E
+
+fi
+
+# import device specific settings
+source ~/.bash/device_specific.bash
 
 # OTHER ----------------------------------------------------
 # Import colorscheme from 'wal' asynchronously
