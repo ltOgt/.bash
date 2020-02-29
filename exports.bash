@@ -4,6 +4,10 @@
 export VISUAL=vim
 export EDITOR="$VISUAL"
 export PATH="$PATH:/opt/AppDev/SDK/android-studio/bin"
-export PATH="$PATH:/opt/AppDev/SDK/android"
 export PATH="$PATH:/opt/AppDev/SDK/flutter/bin"
+
+export ANDROID_HOME="/home/omni/Android/Sdk"
+export ANDROID_SDK_ROOT=$ANDROID_HOME
+export PATH="$PATH:$ANDROID_HOME"
+export PATH="$PATH:$ANDROID_HOME/tools"
 
