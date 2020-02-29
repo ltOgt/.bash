@@ -42,7 +42,7 @@ alias aocoff='xrandr --output HDMI-1 --off'
 
 # android development
 alias emulate-allow='sudo chmod a+rw /dev/kvm'
-alias emulate='android-emulator -avd device'
+alias emulate='~/Android/Sdk/emulator/emulator -avd device'
 
 # installation
 sai()
