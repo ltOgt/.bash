@@ -12,7 +12,10 @@ setup_touchpad()
 	scrollingNumber=$(xinput list-props "$deviceName" | grep "$scrollingIdent" | sed 's/.*(\(.*\)).*/\1/')
 
 	xinput set-prop "$deviceName" $tappingNumber 1
+	echo "$(xinput set-prop "$deviceName" $tappingNumber 1
+)"
 	xinput set-prop "$deviceName" $scrollingNumber 1
+	echo "$(xinput set-prop "$deviceName" $scrollingNumber 1)"
 
 	unset deviceName
 	unset tappingIdent

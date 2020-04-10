@@ -1,8 +1,10 @@
 flutter_generate () {
-	flutter packages pub run build_runner build
+	flutter pub get
+	flutter packages pub run build_runner build --delete-conflicting-outputs
 }
 flutter_generate_watch () {
-	flutter packages pub run build_runner watch
+	flutter pub get
+	flutter packages pub run build_runner watch --delete-conflicting-outputs
 }
 flutter_build_apk () {
 	build_file=./lib/build/build_mode.dart

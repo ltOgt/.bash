@@ -34,6 +34,7 @@ parse_git_branch() {
     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
 generate_git_delim() {
+	# Insert a line break if in a git repo (branch name takes more space)
 	[[ "$(git branch 2> /dev/null)" == "" ]] && echo "$" || echo -e "\n$"
 }
 if [ -f /etc/bash_completion ]; then

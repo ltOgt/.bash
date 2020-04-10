@@ -37,8 +37,9 @@ alias zs='urxvt_zoom s'
 alias gidde="awk '/MEANING/,/^$/' ~/.vim/syntax/gid.vim"
 
 # extend to my second screen at home
-alias aocon='xrandr --output HDMI-1 --right-of eDP-1 --auto'
-alias aocoff='xrandr --output HDMI-1 --off'
+# i xrandr has tab completion to find devices
+alias aocon='xrandr --output HDMI-2 --right-of eDP-1 --auto'
+alias aocoff='xrandr --output HDMI-2 --off'
 
 # android development
 alias emulate-allow='sudo chmod a+rw /dev/kvm'
@@ -54,4 +55,11 @@ sai()
 lns()
 {
 	sudo ln -s $(pwd)/$1 /usr/local/bin/$2
+}
+
+# rebuild config from base only
+makei3base()
+{
+	I3_CONFIG_PATH=~/.config/i3
+	cat I3_CONFIG_PATH/config_base > I3_CONFIG_PATH/config
 }
