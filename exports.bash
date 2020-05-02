@@ -11,3 +11,4 @@ export ANDROID_SDK_ROOT=$ANDROID_HOME
 export PATH="$PATH:$ANDROID_HOME"
 export PATH="$PATH:$ANDROID_HOME/tools"
 
+export PATH="$PATH:/home/omni/.bash/scripts/appdev/"
