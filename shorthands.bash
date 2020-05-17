@@ -45,6 +45,14 @@ alias aocoff='xrandr --output HDMI-2 --off'
 alias emulate-allow='sudo chmod a+rw /dev/kvm'
 alias emulate='~/Android/Sdk/emulator/emulator -avd device'
 
+# clipboard
+# // https://stackoverflow.com/a/27456981/7215915
+# $ echo "foo" | setclip
+alias setclip="xclip -selection c"
+# $ getclip
+# >> foo
+alias getclip="xclip -selection c -o"
+
 # installation
 sai()
 {
