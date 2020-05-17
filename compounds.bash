@@ -34,6 +34,11 @@ cpwp ()
 	fi
 }
 
+# find file (by name) in directory tree below current root node
+lrep ()
+{
+	ls . | grep $@
+}
 
 # find file (by name) in directory tree below current root node
 frep ()
