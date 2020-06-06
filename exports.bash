@@ -12,3 +12,5 @@ export PATH="$PATH:$ANDROID_HOME"
 export PATH="$PATH:$ANDROID_HOME/tools"
 
 export PATH="$PATH:/home/omni/.bash/scripts/appdev/"
+
+export CHROME_EXECUTABLE=/usr/bin/chromium-browser
