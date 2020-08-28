@@ -38,7 +38,7 @@ alias gidde="awk '/MEANING/,/^$/' ~/.vim/syntax/gid.vim"
 
 # extend to my second screen at home
 # i xrandr has tab completion to find devices
-alias aocon='xrandr --output HDMI-2 --right-of eDP-1 --auto'
+alias aocon='xrandr --output HDMI-2 --left-of eDP-1 --auto'
 alias aocoff='xrandr --output HDMI-2 --off'
 
 # android development
