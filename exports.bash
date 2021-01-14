@@ -13,7 +13,8 @@ export PATH="$PATH:$ANDROID_HOME/tools"
 
 export PATH="$PATH:/home/omni/.bash/scripts/appdev/"
 
-export CHROME_EXECUTABLE=/usr/bin/chromium-browser
+#export CHROME_EXECUTABLE=/usr/bin/chromium-browser
+export CHROME_EXECUTABLE=/snap/bin/chromium
 
 
 export GOROOT=/usr/local/go
