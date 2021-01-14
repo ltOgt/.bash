@@ -28,6 +28,15 @@ gitd ()
 	fi
 }
 
+gitrab ()
+{
+git branch
+read -p "Delete all branches except master? [y/N] " answer
+if [[ $answer == "y" ]] || [[ $answer == "Y" ]]; then
+	git branch | grep -ve " master$" | xargs git branch -D
+fi
+}
+
 
 # branch name in console
 parse_git_branch() {
