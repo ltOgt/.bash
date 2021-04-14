@@ -4,4 +4,5 @@ if [[ 1 -eq ${BLOCK_BUTTON} ]];then
 	# (set config to close on deselect)
 	gsimplecal &
 fi
-echo "$(date '+%Y-%m-%d %H:%M')"
+# [doy] yyyy-mm-dd hh:mm
+echo " [$(date +%j)]  $(date '+%Y-%m-%d %H:%M')"
