@@ -71,3 +71,7 @@ makei3base()
 	I3_CONFIG_PATH=~/.config/i3
 	cat I3_CONFIG_PATH/config_base > I3_CONFIG_PATH/config
 }
+
+alias brightness="xrandr --output eDP-1 --brightness"
+alias brightness_low="xrandr --output eDP-1 --brightness 0.5"
+alias brightness_min="xrandr --output eDP-1 --brightness 1"
