@@ -11,6 +11,9 @@ alias gita.='echo "git add ." && git add .'
 alias git!='echo "git push" && git push'
 alias git?='echo "git fetch" && git fetch'
 alias git#='echo "git merge" && git merge'
+gitb(){
+	git checkout -b "$@"
+}
 gitm ()
 {
 	git commit -m "$@"
@@ -27,6 +30,8 @@ gitd ()
 		git difftool --tool=vimdiff $@
 	fi
 }
+
+
 
 gitrab ()
 {
