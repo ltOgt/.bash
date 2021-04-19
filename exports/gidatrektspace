@@ -1,0 +1,16 @@
+# edit shell in vim on <Esc>
+#set -o vi
+# vi as default edito
+export VISUAL=vim
+export EDITOR="$VISUAL"
+
+# dart sdk
+export PATH="$PATH:/usr/lib/dart/bin"
+
+# scripts
+export PATH="$PATH:/home/omni/.bash/scripts/appdev/"
+
+# golang
+#export GOROOT=/usr/local/go
+#export GOPATH=~/.go
+#export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
