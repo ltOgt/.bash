@@ -29,9 +29,13 @@ alias ndw='nmcli dev wifi'
 alias ndwa='nmcli dev wifi | grep "\*"'
 
 # Zoom in/out of terminal using custom script
-alias zp='urxvt_zoom +'
-alias zm-='urxvt_zoom -'
-alias zs='urxvt_zoom s'
+if  command -v urxvt_zoom &> /dev/null
+then
+	alias zp='urxvt_zoom +'
+	alias zm-='urxvt_zoom -'
+	alias zs='urxvt_zoom s'
+fi
+
 
 # Print out commonly used (by me) syntax file for quick reference
 alias gidde="awk '/MEANING/,/^$/' ~/.vim/syntax/gid.vim"
