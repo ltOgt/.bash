@@ -34,6 +34,9 @@ source $cbp/flutter.bash
 # Dgraph shortcuts
 source $cbp/dgraph.bash
 
+# Code Shortcuts
+source $cbp/code.bash
+
 
 # auto corrections
 alias ös='ls'
