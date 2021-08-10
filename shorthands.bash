@@ -79,3 +79,9 @@ makei3base()
 alias brightness="xrandr --output eDP-1 --brightness"
 alias brightness_low="xrandr --output eDP-1 --brightness 0.5"
 alias brightness_min="xrandr --output eDP-1 --brightness 1"
+
+
+alias code.="code ."
+alias code,="code ."
+alias c.="code ."
+alias c,="code ."
