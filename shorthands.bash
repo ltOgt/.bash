@@ -45,6 +45,16 @@ alias gidde="awk '/MEANING/,/^$/' ~/.vim/syntax/gid.vim"
 alias aocon='xrandr --output HDMI-2 --left-of eDP-1 --auto'
 alias aocoff='xrandr --output HDMI-2 --off'
 
+# for some reason screenkey works only on primary screen (--scr does not do anything)
+# aocon above (i.e. xrandr --primary) always sets primary to left most screen
+# in my case that is my secondary monito
+# to get screenkey to the bottom right of the "secondary" (actual primary laptop):
+# shift more than the width of the external monitor to right
+# -> ends up on laptop screen
+alias skey='screenkey -p fixed -g 500x50+3330+1030 --no-detach --key-mode composed --font-size small'
+alias skeySingle='screenkey -p fixed -g 500x50+1400+1030 --no-detach --key-mode composed --font-size small'
+# TODO check out alternatives to include mouse events as well (§ KmCaster )
+
 # android development
 alias emulate-allow='sudo chmod a+rw /dev/kvm'
 alias emulate='~/Android/Sdk/emulator/emulator -avd device'
