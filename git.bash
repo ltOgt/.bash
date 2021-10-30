@@ -42,6 +42,7 @@ if [[ $answer == "y" ]] || [[ $answer == "Y" ]]; then
 	git branch | grep -ve " master$" | xargs git branch -D
 fi
 }
+alias gitmerged='git checkout master && git pull && gitrab'
 
 
 # branch name in console
