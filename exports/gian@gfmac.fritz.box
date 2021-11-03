@@ -1,0 +1,10 @@
+# edit shell in vim on <Esc>
+#set -o vi
+# vi as default edito
+export VISUAL=vim
+export EDITOR="$VISUAL"
+
+export PATH="$PATH:~/.bash/scripts/appdev/"
+export PATH="$PATH:/Users/gian/bin/"
+
+export PATH="$PATH:/Users/gian/development/flutter/bin"
