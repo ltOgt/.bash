@@ -10,7 +10,7 @@ gita ()
 alias gita.='echo "git add ." && git add .'
 alias git!='echo "git push" && git push'
 alias gitup='echo "git push --set-upstream origin master" && git push --set-upstream origin master'
-alias git?='echo "git fetch" && git fetch'
+alias gitf='echo "git fetch" && git fetch'
 alias git#='echo "git merge" && git merge'
 gitb(){
 	git checkout -b "$@"
