@@ -1,0 +1,12 @@
+# edit shell in vim on <Esc>
+#set -o vi
+# vi as default edito
+export VISUAL=vim
+export EDITOR="$VISUAL"
+
+export PATH="$PATH:~/.bash/scripts/appdev/"
+export PATH="$PATH:/Users/omni/bin/"
+
+export PATH="$PATH:/Users/omni/development/flutter/bin"
+
+export PATH="$PATH:/Users/omni/Applications/Visual Studio Code.app/Contents/Resources/app/bin"

@@ -1,3 +1,3 @@
 # point to the correct exports path (might be system specific)
 exportpath=~/.bash/exports
-source $exportpath/$(whoami)@$(hostname)
+source $exportpath/$(whoami)@$(hostname -s)
