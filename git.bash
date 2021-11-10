@@ -53,6 +53,9 @@ generate_git_delim() {
 	# Insert a line break if in a git repo (branch name takes more space)
 	[[ "$(git branch 2> /dev/null)" == "" ]] && echo "$" || echo -e "\n$"
 }
+
+
+
 if [ -f /etc/bash_completion ]; then
   . /etc/bash_completion
 
@@ -67,13 +70,26 @@ if [ -f /etc/bash_completion ]; then
 		export PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]$(parse_git_branch)$(generate_git_delim) '
 		unset delim
 	else
-		PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+		export PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 	fi
 	unset color_prompt
 else
-	# TODO not sure what i need bash completion for here
-	# in any case, this here works on mac:
-	export PS1="$(whoami)@$(hostname -s)$(parse_git_branch)$ "
+	# try once more for mac zsh (not quite sure what happens here, see https://www.themoderncoder.com/add-git-branch-information-to-your-zsh-prompt/)
+	if [ "$SHELL" = "/bin/zsh" ]; then
+		#export PS1="$(whoami)@$(hostname -s)$(parse_git_branch)$ "
+		# Load version control information
+		autoload -Uz vcs_info
+		precmd() { vcs_info }
+
+		# Format the vcs_info_msg_0_ variable
+		zstyle ':vcs_info:git:*' formats '(%b)'
+
+		# Set up the prompt (with git branch name)
+		setopt PROMPT_SUBST
+		PROMPT='[%n] ${PWD/#$HOME/~} ${vcs_info_msg_0_}$ '
+	else
+		echo "bash_completion not available, cant set current branch to PS1"
+	fi
 fi
 
 	# If this is an xterm set the title to user@host:dir
