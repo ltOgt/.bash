@@ -8,3 +8,5 @@ export PATH="$PATH:~/.bash/scripts/appdev/"
 export PATH="$PATH:/Users/gian/bin/"
 
 export PATH="$PATH:/Users/gian/development/flutter/bin"
+
+export PATH="$PATH:/Users/gian/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
