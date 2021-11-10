@@ -71,7 +71,9 @@ if [ -f /etc/bash_completion ]; then
 	fi
 	unset color_prompt
 else
-	echo "bash-completion not installed!"
+	# TODO not sure what i need bash completion for here
+	# in any case, this here works on mac:
+	export PS1="$(whoami)@$(hostname -s)$(parse_git_branch)$ "
 fi
 
 	# If this is an xterm set the title to user@host:dir
