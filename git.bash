@@ -54,7 +54,10 @@ generate_git_delim() {
 	[[ "$(git branch 2> /dev/null)" == "" ]] && echo "$" || echo -e "\n$"
 }
 
-
+# needed for mac
+precmd() {
+	vcs_info
+}
 
 if [ -f /etc/bash_completion ]; then
   . /etc/bash_completion
@@ -74,22 +77,21 @@ if [ -f /etc/bash_completion ]; then
 	fi
 	unset color_prompt
 else
-	# try once more for mac zsh (not quite sure what happens here, see https://www.themoderncoder.com/add-git-branch-information-to-your-zsh-prompt/)
-	if [ "$SHELL" = "/bin/zsh" ]; then
-		#export PS1="$(whoami)@$(hostname -s)$(parse_git_branch)$ "
-		# Load version control information
-		autoload -Uz vcs_info
-		precmd() { vcs_info }
+  # try once more for mac zsh (not quite sure what happens here, see https://www.themoderncoder.com/add-    ↳ git-branch-information-to-your-zsh-prompt/)
+  if [ "$SHELL" = "/bin/zsh" ]; then
+		echo ""
+    #export PS1="$(whoami)@$(hostname -s)$(parse_git_branch)$ "
+    # Load version control information
+    autoload -Uz vcs_info
+    #precmd() { vcs_info } #unknown syntax in bash
 
-		# Format the vcs_info_msg_0_ variable
-		zstyle ':vcs_info:git:*' formats '(%b)'
+    # Format the vcs_info_msg_0_ variable
+    zstyle ':vcs_info:git:*' formats '(%b)'
 
-		# Set up the prompt (with git branch name)
-		setopt PROMPT_SUBST
-		PROMPT='[%n] ${PWD/#$HOME/~} ${vcs_info_msg_0_}$ '
-	else
-		echo "bash_completion not available, cant set current branch to PS1"
-	fi
+    # Set up the prompt (with git branch name)
+    setopt PROMPT_SUBST
+    PROMPT='[%n] ${PWD/#$HOME/~} ${vcs_info_msg_0_}$'
+  fi
 fi
 
 	# If this is an xterm set the title to user@host:dir
