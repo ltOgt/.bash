@@ -90,7 +90,7 @@ else
 
     # Set up the prompt (with git branch name)
     setopt PROMPT_SUBST
-    PROMPT='[%n] ${PWD/#$HOME/~} ${vcs_info_msg_0_}$'
+		PROMPT='%n@$(hostname -s) [${PWD/#$HOME/~}/] ${vcs_info_msg_0_}'$'\n''$ '
   fi
 fi
 
