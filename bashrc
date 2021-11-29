@@ -63,12 +63,15 @@ if [[ $- == *i* ]] ; then
 
 	set -o vi
 
-	urxvt_zoom s $(cat ~/.config/urxvt_font_size)
+	if command -v urxvt_zoom &> /dev/null
+	then
+		urxvt_zoom s $(cat ~/.config/urxvt_font_size)
+		# Alt+P => increase font size
+		bind -x '"\ep": "urxvt_zoom + 5"'
+		# Alt+M => decrease font size
+		bind -x '"\em": "urxvt_zoom - 5"'
+	fi
 
-	# Alt+P => increase font size
-	bind -x '"\ep": "urxvt_zoom + 5"'
-	# Alt+M => decrease font size
-	bind -x '"\em": "urxvt_zoom - 5"'
 
 	# go back a directory with Alt+Left
 	# ^[^[[D
