@@ -20,3 +20,6 @@ export CHROME_EXECUTABLE=/snap/bin/chromium
 export GOROOT=/usr/local/go
 export GOPATH=~/.go
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+
+export PATH="/home/omni/.local/share/solana/install/active_release/bin:$PATH"
+

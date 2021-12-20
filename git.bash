@@ -58,7 +58,10 @@ generate_git_delim() {
 	[[ "$(git branch 2> /dev/null)" == "" ]] && echo "$" || echo -e "\n$"
 }
 
-
+# needed for mac
+precmd() {
+	vcs_info
+}
 
 if [ -f /etc/bash_completion ]; then
   . /etc/bash_completion
@@ -84,8 +87,8 @@ else
 		autoload -Uz vcs_info
 		precmd() { vcs_info }
 
-		# Format the vcs_info_msg_0_ variable
-		zstyle ':vcs_info:git:*' formats '(%b)'
+    	# Format the vcs_info_msg_0_ variable
+    	zstyle ':vcs_info:git:*' formats '(%b)'
 
 		# Set up the prompt (with git branch name)
 		setopt PROMPT_SUBST
