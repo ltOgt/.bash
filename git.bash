@@ -37,7 +37,11 @@ gitd ()
 gitrab ()
 {
 git branch
-read -p "Delete all branches except master? [y/N] " answer
+if [ "$SHELL" = "/bin/zsh" ]; then
+	read answer\?"Delete all branches except master? [y/N] "
+else
+	read -p "Delete all branches except master? [y/N] " answer
+fi
 if [[ $answer == "y" ]] || [[ $answer == "Y" ]]; then
 	git branch | grep -ve " master$" | xargs git branch -D
 fi
@@ -76,7 +80,6 @@ if [ -f /etc/bash_completion ]; then
 else
 	# try once more for mac zsh (not quite sure what happens here, see https://www.themoderncoder.com/add-git-branch-information-to-your-zsh-prompt/)
 	if [ "$SHELL" = "/bin/zsh" ]; then
-		#export PS1="$(whoami)@$(hostname -s)$(parse_git_branch)$ "
 		# Load version control information
 		autoload -Uz vcs_info
 		precmd() { vcs_info }
@@ -86,7 +89,7 @@ else
 
 		# Set up the prompt (with git branch name)
 		setopt PROMPT_SUBST
-		PROMPT='[%n] ${PWD/#$HOME/~} ${vcs_info_msg_0_}$ '
+		PROMPT='%n@$(hostname -s) [${PWD/#$HOME/~}/] ${vcs_info_msg_0_}'$'\n''$ '
 	else
 		echo "bash_completion not available, cant set current branch to PS1"
 	fi
