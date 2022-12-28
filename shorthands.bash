@@ -95,3 +95,6 @@ alias code.="code ."
 alias code,="code ."
 alias c.="code ."
 alias c,="code ."
+
+
+alias brewfix="sudo chown -R $(whoami) /opt/homebrew"
