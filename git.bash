@@ -12,6 +12,7 @@ alias git!='echo "git push" && git push'
 alias gitup='echo "git push --set-upstream origin master" && git push --set-upstream origin master'
 alias gitf='echo "git fetch" && git fetch'
 alias git#='echo "git merge" && git merge'
+alias gitma='echo "git checkout master" && git checkout master'
 gitb(){
 	git checkout -b "$@"
 }

@@ -10,3 +10,15 @@ export PATH="$PATH:/Users/gian/bin/"
 export PATH="$PATH:/Users/gian/development/flutter/bin"
 
 export PATH="$PATH:/Users/gian/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+
+# to allow for "flutter" use in the fork: https://github.com/flutter/flutter/wiki/Setting-up-the-Framework-development-environment
+export PATH="$PATH:/Users/gian/repos/flutter/bin"
+
+# enable vim editing of terminal via ctrl-X => ctrl-E
+autoload -z edit-command-line
+zle -N edit-command-line
+bindkey "^X^E" edit-command-line
+
+# enable vi mode inside the terminal directly
+# (zsh, on bash this is done via "set -o vi")
+bindkey -v
