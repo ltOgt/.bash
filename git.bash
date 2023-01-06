@@ -33,6 +33,12 @@ gitd ()
 	fi
 }
 
+gitmm () {
+	branch_name=$(git branch --show-current)
+	echo "git checkout master && git pull && git checkout $branch_name && git merge master"
+	git checkout master && git pull && git checkout $branch_name && git merge master
+}
+
 
 
 gitrab ()
