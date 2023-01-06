@@ -9,6 +9,8 @@ export PATH="$PATH:/Users/omni/development/flutter/bin"
 
 export PATH="$PATH:/Users/omni/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 
+export PATH="$PATH:/Users/omni/Library/Python/3.8/bin"
+
 # enable vim editing of terminal via ctrl-X => ctrl-E
 autoload -z edit-command-line
 zle -N edit-command-line

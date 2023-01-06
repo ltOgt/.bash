@@ -1,3 +1,4 @@
+alias flutter_build_runner='flutter_generate'
 flutter_generate () {
 	flutter pub get
 	flutter packages pub run build_runner build --delete-conflicting-outputs
