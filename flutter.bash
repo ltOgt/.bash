@@ -93,7 +93,9 @@ flutter_template () {
 	echo "... currently on $current_sdk"
 	sleep 1
 	cp ~/.bash/flutter/template/pubspec.yaml pubspec.yaml
-	cat pubspec.yaml | sed "s/sdk: '>.*$/$current_sdk/" > pubspec.yaml
+	sed "s/sdk: '>.*$/$current_sdk/g" pubspec.yaml > _temp
+	cat _temp > pubspec.yaml
+	rm _temp
 
 
 	echo "\nreplacing main ..."

@@ -3,18 +3,22 @@ description: INSERT_DESCRIPTION
 publish_to: 'none'
 version: 1.0.0+1
 
-# TODO replace with
 environment:
-  sdk: '>=2.18.0-232.0.dev <3.0.0'
+    sdk: '>=REPLACE_THIS'
 
 dependencies:
   flutter:
     sdk: flutter
+  # TODO MIGHT NEED TO ADJUST RELATIVE INPUT
+  ltogt_utils_flutter:
+    path: ../repos/package/ltogt_utils_flutter
+  relation_canvas:
+    path: ../repos/package/relation_canvas
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.0
+  flutter_lints:
 
 flutter:
   uses-material-design: true
