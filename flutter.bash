@@ -70,3 +70,49 @@ flutter_new_package() {
 }
 
 alias flutterweb='/home/omni/repos/flutter_web/flutter/bin/flutter'
+
+flutter_pub_get_offline () {
+	echo "flutter pub get --offline"
+	flutter pub get --offline
+}
+
+flutter_template () {
+	echo "creating $1"
+  flutter create --platforms macos $1 || return 1
+
+	echo "-----------------------------------"
+	# Adding sleep at every step since its nicer to look at output then
+
+	echo "canging into $1"
+	cd $1
+
+	echo "\nreplacing pubspec ..."
+	sleep 1
+
+	current_sdk=$(cat pubspec.yaml | grep "sdk: '>")
+	echo "... currently on $current_sdk"
+	sleep 1
+	cp ~/.bash/flutter/template/pubspec.yaml pubspec.yaml
+	cat pubspec.yaml | sed "s/sdk: '>.*$/$current_sdk/" > pubspec.yaml
+
+
+	echo "\nreplacing main ..."
+	sleep 1
+	cp ~/.bash/flutter/template/main.dart lib/main.dart
+
+	echo "\nremoving default test ..."
+	sleep 1
+	rm test/widget_test.dart
+
+	echo "\nadding macos permissions..."
+	sleep 2
+	cp ~/.bash/flutter/template/macos_runner.entitlements macos/Runner/DebugProfile.entitlements
+	cp ~/.bash/flutter/template/macos_runner.entitlements macos/Runner/ReleaseProfile.entitlements
+
+	echo "\nOPENING VSCODE"
+	sleep 2
+	c.
+}
+
+
+
