@@ -1,19 +1,19 @@
-name: INSERT_NAME
-description: INSERT_DESCRIPTION
+name: <NAME>
+description: <DESCRIPTION>
 publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-    sdk: '>=REPLACE_THIS'
+    <SDK>
 
 dependencies:
   flutter:
     sdk: flutter
   # TODO MIGHT NEED TO ADJUST RELATIVE INPUT
   ltogt_utils_flutter:
-    path: ../repos/package/ltogt_utils_flutter
+    path: <HOME>/repos/package/ltogt_utils_flutter
   relation_canvas:
-    path: ../repos/package/relation_canvas
+    path: <HOME>/repos/package/relation_canvas
 
 dev_dependencies:
   flutter_test:

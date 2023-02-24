@@ -76,26 +76,62 @@ flutter_pub_get_offline () {
 	flutter pub get --offline
 }
 
+
+
 flutter_template () {
-	echo "creating $1"
-  flutter create --platforms macos $1 || return 1
+	if [[ $# -ne 2 ]]; then
+		echo "flutter_template <name> <desc>"
+		return 1;
+	fi
+
+	name=$1
+	desc=$2
+
+	echo "creating $name"
+  flutter create --platforms macos $name || return 1
 
 	echo "-----------------------------------"
 	# Adding sleep at every step since its nicer to look at output then
 
-	echo "canging into $1"
-	cd $1
+	echo "canging into $name"
+	cd $name
+
+	echo "\nreplacing readme ..."
+	sleep 1
+	echo "# $name\n\n$desc" > README.md
 
 	echo "\nreplacing pubspec ..."
 	sleep 1
 
 	current_sdk=$(cat pubspec.yaml | grep "sdk: '>")
-	echo "... currently on $current_sdk"
+	echo "... SDK = $current_sdk"
 	sleep 1
 	cp ~/.bash/flutter/template/pubspec.yaml pubspec.yaml
-	sed "s/sdk: '>.*$/$current_sdk/g" pubspec.yaml > _temp
+	sed "s/<SDK>/$current_sdk/g" pubspec.yaml > _temp
 	cat _temp > pubspec.yaml
+	#
+	echo "... HOME = $HOME"
+	sleep 1
+	sed "s#<HOME>#$HOME#g" pubspec.yaml > _temp
+	cat _temp > pubspec.yaml
+	#
+	echo "... NAME = $name"
+	sleep 1
+	sed "s#<NAME>#$name#g" pubspec.yaml > _temp
+	cat _temp > pubspec.yaml
+	#
+	echo "... DESCRIPTION = $desc"
+	sleep 1
+	sed "s#<DESCRIPTION>#$desc#g" pubspec.yaml > _temp
+	cat _temp > pubspec.yaml
+	#
+	#
 	rm _temp
+
+	echo "... fetching dependencies"
+	sleep 1
+	flutter pub get
+
 
 
 	echo "\nreplacing main ..."
@@ -114,6 +150,10 @@ flutter_template () {
 	echo "\nOPENING VSCODE"
 	sleep 2
 	c.
+}
+
+flutter_enable_web() {
+	flutter create --platforms web .
 }
 
 
