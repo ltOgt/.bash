@@ -19,3 +19,8 @@ bindkey "^X^E" edit-command-line
 # enable vi mode inside the terminal directly
 # (zsh, on bash this is done via "set -o vi")
 bindkey -v
+
+
+# npm nvm - https://tecadmin.net/install-nvm-macos-with-homebrew/
+export NVM_DIR=~/.nvm
+source $(brew --prefix nvm)/nvm.sh
