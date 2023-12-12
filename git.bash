@@ -13,6 +13,9 @@ alias gitup='echo "git push --set-upstream origin master" && git push --set-upst
 alias gitf='echo "git fetch" && git fetch'
 alias git#='echo "git merge" && git merge'
 alias gitma='echo "git checkout master" && git checkout master'
+gitc(){
+	git checkout "$@"
+}
 gitb(){
 	git checkout -b "$@"
 }
@@ -32,7 +35,9 @@ gitd ()
 		git difftool --tool=vimdiff $@
 	fi
 }
-
+gitmaster(){
+	git checkout master && git pull
+}
 gitmm () {
 	branch_name=$(git branch --show-current)
 	echo "git checkout master && git pull && git checkout $branch_name && git merge master"
