@@ -25,6 +25,10 @@ flutter_build_apk () {
 	fi
 }
 
+fcpg () {
+	flutter clean && flutter pub get
+}
+
 _flutter_build_apk () {
 	flutter clean && flutter build apk
 }
