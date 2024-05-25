@@ -14,6 +14,12 @@ export PATH="$PATH:/Users/gian/Applications/Visual Studio Code.app/Contents/Reso
 # to allow for "flutter" use in the fork: https://github.com/flutter/flutter/wiki/Setting-up-the-Framework-development-environment
 export PATH="$PATH:/Users/gian/repos/flutter/bin"
 
+# add rust to path
+export PATH="$PATH:/Users/gian/.cargo/bin/rustup"
+
+# add local ruby gem stuff
+export PATH="$PATH:/Users/gian/.local/share/gem/ruby/2.6.0/bin"
+
 # enable vim editing of terminal via ctrl-X => ctrl-E
 autoload -z edit-command-line
 zle -N edit-command-line
