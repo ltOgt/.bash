@@ -16,6 +16,11 @@ alias lab="jupyter-lab --no-browser"
 function cap(){
 	chromium-browser --app=$1
 }
+# cap but on macos
+function chromeapp(){
+	/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --app="$1"
+}
+
 
 # Quick test if connection is broken
 alias p8='ping 8.8.8.8'
@@ -169,3 +174,7 @@ alias c.="code ."
 alias c,="code ."
 
 alias brewfix="sudo chown -R $(whoami) /opt/homebrew"
+
+
+
+
