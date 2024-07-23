@@ -176,5 +176,5 @@ alias c,="code ."
 alias brewfix="sudo chown -R $(whoami) /opt/homebrew"
 
 
-
+alias make10gb="mkfile -n 10g temp_10GB_file"
 

@@ -44,6 +44,11 @@ gitmm () {
 	git checkout master && git pull && git checkout $branch_name && git merge master
 }
 
+gitmmain () {
+	branch_name=$(git branch --show-current)
+	echo "git checkout main && git pull && git checkout $branch_name && git merge main"
+	git checkout main && git pull && git checkout $branch_name && git merge main
+}
 
 
 gitrab ()
