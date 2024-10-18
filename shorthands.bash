@@ -21,6 +21,28 @@ function chromeapp(){
 	/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --app="$1"
 }
 
+function mkv2mp4() {
+		if [ "$#" -ne 2 ]; then
+        echo "Usage: mkv2mp4 input.mkv output.mp4"
+        return 1
+    fi
+
+    local input_file="$1"
+    local output_file="$2"
+
+    if ! command -v ffmpeg &> /dev/null; then
+        echo "ffmpeg is not installed. Please install ffmpeg to use this function."
+        return 1
+    fi
+
+    if [ ! -f "$input_file" ]; then
+        echo "Input file '$input_file' does not exist."
+        return 1
+    fi
+
+    ffmpeg -i "$input_file" -c:v libx264 -crf 23 -preset slow -c:a aac "$output_file"
+}
+
 
 # Quick test if connection is broken
 alias p8='ping 8.8.8.8'
@@ -172,6 +194,8 @@ alias code.="code ."
 alias code,="code ."
 alias c.="code ."
 alias c,="code ."
+alias cai.="cursor ."
+alias cai,="cursor ."
 
 alias brewfix="sudo chown -R $(whoami) /opt/homebrew"
 
