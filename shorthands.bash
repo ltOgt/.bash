@@ -196,6 +196,7 @@ alias c.="code ."
 alias c,="code ."
 alias cai.="cursor ."
 alias cai,="cursor ."
+alias cai="cursor ."
 
 alias brewfix="sudo chown -R $(whoami) /opt/homebrew"
 
