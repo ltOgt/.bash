@@ -80,6 +80,10 @@ precmd() {
 	vcs_info
 }
 
+gitunpush() {
+  git reset --soft HEAD~1
+}
+
 if [ -f /etc/bash_completion ]; then
   . /etc/bash_completion
 
