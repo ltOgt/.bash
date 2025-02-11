@@ -50,19 +50,19 @@ gitmmain () {
 	git checkout main && git pull && git checkout $branch_name && git merge main
 }
 
-
 gitrab ()
 {
-git branch
-if [ "$SHELL" = "/bin/zsh" ]; then
-	read answer\?"Delete all branches except master? [y/N] "
-else
-	read -p "Delete all branches except master? [y/N] " answer
-fi
-if [[ $answer == "y" ]] || [[ $answer == "Y" ]]; then
-	git branch | grep -ve " master$" | xargs git branch -D
-fi
+    git branch
+    if [ "$SHELL" = "/bin/zsh" ]; then
+        read answer\?"Delete all branches except master/main? [y/N] "
+    else
+        read -p "Delete all branches except master/main? [y/N] " answer
+    fi
+    if [[ $answer == "y" ]] || [[ $answer == "Y" ]]; then
+        git branch | grep -ve " master$" -e " main$" | xargs git branch -D
+    fi
 }
+
 alias gitmerged='git checkout master && git pull && gitrab'
 
 
