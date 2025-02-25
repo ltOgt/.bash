@@ -203,3 +203,7 @@ alias brewfix="sudo chown -R $(whoami) /opt/homebrew"
 
 alias make10gb="mkfile -n 10g temp_10GB_file"
 
+fifdart() {
+  grep -r "$1" --include="*.dart" . | sed 's/\(.*\.dart\):/\n\1:\n/'
+}
+
