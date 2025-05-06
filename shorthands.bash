@@ -88,7 +88,7 @@ alias emulate='~/Android/Sdk/emulator/emulator -avd device'
 
 # clipboard
 # // https://stackoverflow.com/a/27456981/7215915
-# $ echo "foo" | setclip
+# $ echo "foo" | setclip # on macos: pbcopy
 alias setclip="xclip -selection c"
 # $ getclip
 # >> foo
@@ -205,5 +205,8 @@ alias make10gb="mkfile -n 10g temp_10GB_file"
 
 fifdart() {
   grep -r "$1" --include="*.dart" . | sed 's/\(.*\.dart\):/\n\1:\n/'
+}
+fifend() {
+  grep -r "$1" --include="$2" . | sed 's/\(.*\.dart\):/\n\1:\n/'
 }
 
